@@ -1,0 +1,38 @@
+{
+  "name": "async-ioc",
+  "version": "0.0.1",
+  "description": "a simple framework that handles dependency injection, with the capability of async initialization.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf build && babel -d build --stage 0 ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiaz/async-ioc.git"
+  },
+  "keywords": [
+    "inversion-of-control",
+    "dependency",
+    "injection",
+    "async"
+  ],
+  "author": "jiaji.zhou@hulu.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiaz/async-ioc/issues"
+  },
+  "homepage": "https://github.com/jiaz/async-ioc",
+  "dependencies": {
+    "babel-runtime": "~5.8.20",
+    "babel": "~5.8.21",
+    "bluebird": "~2.9.34",
+    "lodash": "~3.10.1",
+    "glob": "~5.0.14"
+  },
+  "devDependencies": {
+    "bunyan": "~1.4.0",
+    "eslint": "~1.2.1",
+    "eslint-config-airbnb-lite": "~1.0.4",
+    "babel-eslint": "~4.1.0"
+  }
+}
