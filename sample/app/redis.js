@@ -9,29 +9,32 @@ class RedisConnectionManager {
   constructor(clusterManager) {
     logger.info('creating RedisConnectionManager');
     this.clusterManager = clusterManager;
-    clusterManager.on('add', this.addNode.bind(this));
-    clusterManager.on('remove', this.removeNode.bind(this));
     logger.info('RedisConnectionManager created');
   }
 
   addNode(nodeName) {
     // add node to ring
-    ring.addNode(nodeName);
+    this.ring.addNode(nodeName);
   }
 
   removeNode(nodeName) {
     // delete the node from the ring
-    ring.removeNode(nodeName);
+    this.ring.removeNode(nodeName);
   }
 
   getConnection(key) {
-    return ring.hashByKey(key);
+    return this.ring.hashByKey(key);
   }
 
   init() {
     logger.info('initializing RedisConnectionManager');
-    var servers = this.clusterManager.getRedisServers();
-    return Promise.resolve(servers).map(server => {
+    return this.clusterManager.getRedisServers().then(servers => {
+      // need some logic to handle server remove/add during first conenction
+      // omitted for simplicity
+      this.clusterManager.on('add', this.addNode.bind(this));
+      this.clusterManager.on('remove', this.removeNode.bind(this));
+      return servers;
+    }).map(server => {
       // create real redis client and connect to the server
       // here is a fake implementation
       logger.info(`connecting to server: ${server}`);

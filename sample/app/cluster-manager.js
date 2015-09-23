@@ -23,7 +23,7 @@ class MockClusterManager extends EventEmitter {
   }
 
   getRedisServers() {
-    return ['server1', 'server2'];
+    return Promise.resolve(['server1', 'server2']);
   }
 }
 
